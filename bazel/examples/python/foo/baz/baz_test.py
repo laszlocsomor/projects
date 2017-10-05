@@ -6,11 +6,9 @@ import sys
 import unittest
 
 
-def GetEnv(name, default=None):
+def GetEnv(name);
   value = os.getenv(name, '__undefined_envvar__')
   if value == '__undefined_envvar__':
-    if default:
-      return default
     raise Error('undefined envvar: %s' % name)
   return value
 
@@ -42,10 +40,7 @@ def RunProgram(args):
 
 
 def Rlocation(runfile_path):
-  """Returns the actual location (absolute path) of a runfile."""
-  test_srcdir = GetEnv('TEST_SRCDIR')
-  result = {}
-  with open(os.path.join(test_srcdir, 'MANIFEST'), 'r') as f:
+  with open(GetEnv('RUNFILES_MANIFEST_FILE'), 'r') as f:
     for l in f:
       tokens = l.strip().split(' ')
       if len(tokens) == 2:
@@ -59,11 +54,9 @@ class TestBase(unittest.TestCase):
   def testFoo(self):
     exit_code, stdout_lines, stderr_lines = RunProgram(
         [Rlocation('laszlocsomor/examples/python/foo/foo_bin.exe')])
-    if exit_code:
-      self.fail("exit_code=%d, stdout=(\n%s)\n, stderr=(\n%s\n)" % (
-        exit_code,
-        '\n'.join(stdout_lines),
-        '\n'.join(stderr_lines)))
+    self.assertEqual(exit_code, 0)
+    self.assertEqual(stdout_lines, ['Hello!', '42', 'data: hello data'])
+
 
 if __name__ == '__main__':
   unittest.main()
