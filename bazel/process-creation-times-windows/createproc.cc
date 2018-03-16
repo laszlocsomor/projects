@@ -29,7 +29,7 @@ bool RunProc(char* cmdline, LARGE_INTEGER* create_time, LARGE_INTEGER* full_time
 }
 
 size_t percentile_index(size_t total, size_t a, size_t b) {
-  return std::min<size_t>(total, (total * a) / b);
+  return std::min<size_t>(total - 1, (total * a) / b);
 }
 
 int main(int argc, char* argv[]) {
