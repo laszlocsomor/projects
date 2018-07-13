@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
   WCHAR name[] = L"\\\\?\\C:\\tmp\\names\\a&b.txt";
   
-  for (int x = 0; x <= 255; ++x) {
+  for (int x = 0; x <= 0xFFFF; ++x) {
     name[18] = x;
     HANDLE h = CreateFileW(
       name,
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
       NULL);
     if (h == INVALID_HANDLE_VALUE) {
       DWORD err = GetLastError();
-      if (x < 32) {
+      if (x < 32 || x > 127) {
         fprintf(stderr, "%d is illegal (error: %d)\n", x, err);
       } else {
         fprintf(stderr, "%d (%c) is illegal (error: %d)\n", x, x, err);
@@ -43,6 +43,10 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%d WriteFile failed: %d\n", x, name, err);
       }
       CloseHandle(h);
+      DeleteFileW(name);
+    }
+    if (x > 0 && x % 100 == 0) {
+      fprintf(stderr, "\rTried %d out of 65536 names\r", x);
     }
   }
   return 0;
