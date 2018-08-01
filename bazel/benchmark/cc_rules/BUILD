@@ -37,3 +37,8 @@ cc_binary(
     copts = ["-DROOTVALUE=1"],
     deps = ["q1"],
 )
+
+cc_binary(
+    name = "minibazel",
+    srcs = ["createproc-raw.cc"],
+)
