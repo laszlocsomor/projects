@@ -1,0 +1,8 @@
+Linux desktop, SSD, 64 GB RAM:
+~/stuff/bazel/bazel-bin/src/bazel --output_user_root=$HOME/tmp2-standalone build --announce_rc --profile=genrules-standalone-ssd-linux.prof --genrule_strategy=standalone //genrules:all
+~/stuff/bazel/bazel-bin/src/bazel --output_user_root=$HOME/tmp2-sandboxed build --announce_rc --profile=genrules-sandboxed-ssd-linux.prof --genrule_strategy=sandboxed //genrules:all
+
+Windows desktop, HDD, 32 GB RAM:
+
+Windows laptop, SSD, 16 GB RAM
+c:\src\bazel\bazel-bin\src\bazel.exe --output_user_root=c:\tmp2-standalone build --announce_rc --profile=genrules-standalone-ssd-windows.prof --genrule_strategy=standalone //genrules:all"
