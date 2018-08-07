@@ -21,6 +21,4 @@ all:
 	done
 
 clean:
-	i=1 ; while [[ $$i -le 1024 ]]; do \ 
-		rm Foo$$i.java ; \
-	done
+	rm Foo*.java
