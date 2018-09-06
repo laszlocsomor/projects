@@ -41,6 +41,22 @@ int main(int argc, char** argv) {
   } else {
     printf("ReadFile: could not read from deleted file\n");
   }
+
+  // Attempt to re-create the file.
+  h2 = CreateFileA(
+      argv[1], GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+      NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (h2 != INVALID_HANDLE_VALUE) {
+    DWORD written;
+    if (WriteFile(h2, "hello\n", 6, &written, NULL)) {
+      printf("WriteFile: wrote to deleted-but-recreated file\n");
+    } else {
+      printf("WriteFile: failed to write to deleted-but-recreated file: %d\n",
+             GetLastError());
+    }
+  } else {
+    printf("cannot re-open deleted file: %d\n", GetLastError());
+  }
   
   printf("press any key to continue . . .\n");
   ReadFile(GetStdHandle(STD_INPUT_HANDLE), &data, 1, &read, NULL);
