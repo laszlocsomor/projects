@@ -60,23 +60,23 @@ int main(int argc, char* argv[]) {
     LARGE_INTEGER freq;
     QueryPerformanceFrequency(&freq);
     for (size_t i = 0; i < kSamples; ++i) {
-      create_time[i].QuadPart = (create_time[i].QuadPart * 1000) / freq.QuadPart;
-      full_time[i].QuadPart = (full_time[i].QuadPart * 1000) / freq.QuadPart;
+      create_time[i].QuadPart = (create_time[i].QuadPart * 1000000) / freq.QuadPart;
+      full_time[i].QuadPart = (full_time[i].QuadPart * 1000000) / freq.QuadPart;
     }
     std::cout << std::endl;
     std::cout << "CreateProcess times" << std::endl;
-    std::cout << "  95th %%: " << create_time[percentile_index(kSamples, 95, 100)].QuadPart << " ms" << std::endl;
-    std::cout << "  99th %%: " << create_time[percentile_index(kSamples, 99, 100)].QuadPart << " ms" << std::endl;
-    std::cout << "  99.5th %%: " << create_time[percentile_index(kSamples, 995, 1000)].QuadPart << " ms" << std::endl;
-    std::cout << "  99.9th %%: " << create_time[percentile_index(kSamples, 999, 1000)].QuadPart << " ms" << std::endl;
-    std::cout << "  max: " << create_time[kSamples - 1].QuadPart << " ms" << std::endl;
+    std::cout << "  95th %%: " << create_time[percentile_index(kSamples, 95, 100)].QuadPart << " us" << std::endl;
+    std::cout << "  99th %%: " << create_time[percentile_index(kSamples, 99, 100)].QuadPart << " us" << std::endl;
+    std::cout << "  99.5th %%: " << create_time[percentile_index(kSamples, 995, 1000)].QuadPart << " us" << std::endl;
+    std::cout << "  99.9th %%: " << create_time[percentile_index(kSamples, 999, 1000)].QuadPart << " us" << std::endl;
+    std::cout << "  max: " << create_time[kSamples - 1].QuadPart << " us" << std::endl;
     std::cout << std::endl;
     std::cout << "CreateProcess + WaitForSingleObject times" << std::endl;
-    std::cout << "  95th %%: " << full_time[percentile_index(kSamples, 95, 100)].QuadPart << " ms" << std::endl;
-    std::cout << "  99th %%: " << full_time[percentile_index(kSamples, 99, 100)].QuadPart << " ms" << std::endl;
-    std::cout << "  99.5th %%: " << full_time[percentile_index(kSamples, 995, 1000)].QuadPart << " ms" << std::endl;
-    std::cout << "  99.9th %%: " << full_time[percentile_index(kSamples, 999, 1000)].QuadPart << " ms" << std::endl;
-    std::cout << "  max: " << full_time[kSamples - 1].QuadPart << " ms" << std::endl;
+    std::cout << "  95th %%: " << full_time[percentile_index(kSamples, 95, 100)].QuadPart << " us" << std::endl;
+    std::cout << "  99th %%: " << full_time[percentile_index(kSamples, 99, 100)].QuadPart << " us" << std::endl;
+    std::cout << "  99.5th %%: " << full_time[percentile_index(kSamples, 995, 1000)].QuadPart << " us" << std::endl;
+    std::cout << "  99.9th %%: " << full_time[percentile_index(kSamples, 999, 1000)].QuadPart << " us" << std::endl;
+    std::cout << "  max: " << full_time[kSamples - 1].QuadPart << " us" << std::endl;
   }
   return 0;
 }

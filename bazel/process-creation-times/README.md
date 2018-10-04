@@ -1,4 +1,4 @@
-# Measure process create speed
+# Measure process creation speed
 
 ## Usage
 
@@ -11,18 +11,18 @@ bazel-bin/bin
 
 ```
 CreateProcess times
-  95th %%: 4 ms
-  99th %%: 7 ms
-  99.5th %%: 8 ms
-  99.9th %%: 10 ms
-  max: 10 ms
+  95th %%: 5146 us
+  99th %%: 10524 us
+  99.5th %%: 10727 us
+  99.9th %%: 16580 us
+  max: 16580 us
 
 CreateProcess + WaitForSingleObject times
-  95th %%: 12 ms
-  99th %%: 20 ms
-  99.5th %%: 21 ms
-  99.9th %%: 24 ms
-  max: 24 ms
+  95th %%: 14353 us
+  99th %%: 25068 us
+  99.5th %%: 25336 us
+  99.9th %%: 26531 us
+  max: 26531 us
 ```
 
 ## Linux
