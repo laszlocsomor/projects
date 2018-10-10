@@ -1,0 +1,13 @@
+workspace(name = "main_repo")
+
+new_local_repository(
+    name = "external_repo",
+    path = "C:/src/my-projects/bazel/examples/repo_rule_glob_bug/external_repo",
+    build_file_content = """
+filegroup(
+    name = "files",
+    srcs = glob(["**/*.txt"]),
+    visibility = ["//visibility:public"],
+)
+""",
+)
