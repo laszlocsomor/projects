@@ -1,0 +1,22 @@
+new_local_repository(
+    name = "ext_c",
+    path = "c:/src/my-projects/bazel/examples/cc_with_external_repo/ext",
+    build_file_content = """
+filegroup(
+    name = "imported_dlls",
+    srcs = glob(["**/*.dll"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "imported_libs",
+    srcs = glob(["**/*.lib"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "imported_ccs",
+    srcs = glob(["**/*.cc"]),
+    visibility = ["//visibility:public"],
+)
+""")
