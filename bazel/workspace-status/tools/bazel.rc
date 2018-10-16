@@ -1,0 +1,2 @@
+build -s
+build --workspace_status_command="python foo/status.py"
