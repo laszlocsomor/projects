@@ -3,5 +3,5 @@ load(":slow_repo.bzl", "slow_repo")
 slow_repo(
     name = "slow",
     delay_sec = 15,
-    sleep_bin = "c:/src/my-projects/bazel/slow-repo-rule/sleep.exe",
+    sleep_bin = "/usr/local/google/home/laszlocsomor/stuff/my-projects/bazel/slow-repo-rule/sleep",
 )
