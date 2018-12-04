@@ -11,6 +11,12 @@ int main(int argc, char** argv) {
     fprintf(stderr, "argc = %d, should be 3\nUsage: $0 <sleep-sec> <output-file>\n", argc);
     return 1;
   }
+
+  FILE* f = fopen(argv[2], "at");
+  fseek(f, 0, SEEK_END);
+  fprintf(f, "start\n");
+  fclose(f);
+
   int delay = 0;
   sscanf(argv[1], "%d", &delay);
   for (int i = 0; i < delay; ++i) {
