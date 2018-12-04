@@ -1,13 +1,14 @@
 #if defined(_WIN32)
 #include <windows.h>
+#include <stdio.h>
 #else
 #include <unistd.h>
 #endif
 
 #include <stdio.h>
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    fprintf(stderr, "argc = %d, should be 2\n", argc);
+  if (argc != 3) {
+    fprintf(stderr, "argc = %d, should be 3\nUsage: $0 <sleep-sec> <output-file>\n", argc);
     return 1;
   }
   int delay = 0;
@@ -18,6 +19,10 @@ int main(int argc, char** argv) {
 #else
     sleep(1);
 #endif
+    FILE* f = fopen(argv[2], "at");
+    fseek(f, 0, SEEK_END);
+    fprintf(f, "%d\n", i + 1);
+    fclose(f);
     printf("slept %d sec\r", i + 1);
   }
   return 0;
