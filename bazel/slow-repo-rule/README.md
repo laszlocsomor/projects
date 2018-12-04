@@ -8,5 +8,7 @@ Usage:
 
 1. `bazel build //:sleep`
 2. `copy bazel-bin\sleep.exe .`
-3. edit slow\_repo rule's `sleep_bin` attribute in WORKSPACE file
+3. edit slow\_repo rule's `sleep_bin` and `slept_txt` attributes in WORKSPACE file
 4. `bazel --client_debug query @slow//:*`
+5. observe that the file at the `slept_txt` path exists and contains entries for
+   each second slept
