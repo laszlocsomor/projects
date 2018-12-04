@@ -39,8 +39,8 @@ PRINTARG="$(rlocation msys_path_conv/printarg.exe)"
 
 echo "PRINTARG=$PRINTARG"
 echo "MSYS2_ARG_CONV_EXCL=${MSYS2_ARG_CONV_EXCL:-}"
-$PRINTARG begin /dev/null /bin/sh /c/src end
+$PRINTARG begin /dev/null /bin/sh /c/src /hello end
 
 export MSYS2_ARG_CONV_EXCL="*"
 echo "MSYS2_ARG_CONV_EXCL=${MSYS2_ARG_CONV_EXCL:-}"
-$PRINTARG begin /dev/null /bin/sh /c/src end
+$PRINTARG begin /dev/null /bin/sh /c/src /hello end
