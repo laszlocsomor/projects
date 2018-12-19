@@ -11,13 +11,15 @@ Instructions:
 
         bazel --output_user_root=c:\tmp1 run //:bazel-remote -- --host localhost --port 8000 --dir c:\tmp2 --max_size 1
 
-1.  keep this cmd.exe window open, we'll come back to it later
+1.  keep this cmd.exe window open, we'll need it soon again
 
-1.  in a new cmd.exe session, come back to this directory and build with remote caching enabled:
+1.  in a new cmd.exe session, in *this* directory, build with remote caching enabled:
 
         bazel build //:x --remote_http_cache=http://localhost:8000 --spawn_strategy=standalone
 
 1.  clean the local output tree, so the next build will try and download cached outputs
+
+        bazel clean
 
 1.  start the build again with `-s`; be ready to quickly switch to the other cmd.exe window
 
