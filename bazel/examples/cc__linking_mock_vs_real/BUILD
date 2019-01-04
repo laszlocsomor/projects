@@ -20,7 +20,7 @@ cc_binary(
     srcs = ["bin.cc"],
     deps = [
         ":interface",
-        ":mock-impl",
         ":real-impl",
+        ":mock-impl",
     ],
 )
