@@ -1,0 +1,10 @@
+new_local_repository(
+    name = "repo1",
+    path = "./repo1",
+    build_file_content = """exports_files(["gen_cc.bzl"])""",
+)
+
+local_repository(
+    name = "repo2",
+    path = "./repo2",
+)
