@@ -9,11 +9,11 @@
 1.  Start the worker and the server in two separate consoles:
 
     ```
-    <path>\<to>\buildfarm-server.exe <path>\<to>\server.config
+    <path>\<to>\buildfarm-server.exe .\server.config
     ```
 
     ```
-    <path>\<to>\buildfarm-worker.exe <path>\<to>\server.config
+    <path>\<to>\buildfarm-worker.exe .\worker.config
     ```
 
     They don't print anything to stdout/stderr. This is fine.
