@@ -9,14 +9,13 @@ int ifstm(FILE* f, struct fstm* out) {
     return 1;
   }
 
-  if (out->f) {
-    fclose(out->f);
-  }
   out->f = f;
   out->pos = 0;
   out->end = n < _IFSTM_PAGE ? n : _IFSTM_PAGE;
   out->p1size = out->end;
-  out->p2size = n < _IFSTM_PAGE ? 0 : (n - _IFSTM_PAGE);
+  out->p2size = n < _IFSTM_PAGE
+                    ? 0
+                    : (n < _IFSTM_PAGE * 2 ? n - _IFSTM_PAGE : _IFSTM_PAGE);
   return 0;
 }
 

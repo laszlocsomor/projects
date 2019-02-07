@@ -9,7 +9,7 @@
 #else
 // Size of the input file stream's page size, in bytes.
 // The stream's buffer holds two pages of data.
-#define _IFSTM_PAGE 1024
+#define _IFSTM_PAGE 4
 #endif
 
 #ifdef IFSTM_RD_EOF
