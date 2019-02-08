@@ -29,7 +29,7 @@
 struct fstm {
   FILE* f;
   size_t pos, end;
-  size_t p1size, p2size;
+  size_t next_size; // size of the inactive page
   uint8_t pages[_IFSTM_PAGE * 2];
 };
 
