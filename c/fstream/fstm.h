@@ -27,7 +27,4 @@ int ifstm_rd(struct fstm* s);
 //   0..n: the number of successfully peeked bytes
 size_t ifstm_pk(struct fstm* s, size_t n, uint8_t* out);
 
-// Returns nonzero if 's' reached EOF.
-int ifstm_eof(struct fstm* s);
-
 #endif  // _FSTM_H_

@@ -70,7 +70,3 @@ size_t ifstm_pk(struct fstm* s, size_t n, uint8_t* out) {
   }
   return n1 + n2;
 }
-
-int ifstm_eof(struct fstm* s) {
-  return s->pos == s->end;
-}
