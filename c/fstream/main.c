@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "fstm.h"
+#include "ifstm.h"
 
 int main(int argc, char** argv) {
   FILE* f;
-  struct fstm s;
+  struct ifstm s;
 
   f = fopen("./hello.txt", "rb");
   if (!f) {

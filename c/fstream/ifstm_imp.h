@@ -1,5 +1,5 @@
-#ifndef _FSTM_IMP_H_
-#define _FSTM_IMP_H_ 1
+#ifndef _IFSTM_IMP_H_
+#define _IFSTM_IMP_H_ 1
 
 #include <stdio.h>
 #include <stdint.h>
@@ -26,11 +26,11 @@
 #define _IFSTM_PAGE 4
 #endif
 
-struct fstm {
+struct ifstm {
   FILE* f;
   size_t pos, end;
   size_t next_size; // size of the inactive page
   uint8_t pages[_IFSTM_PAGE * 2];
 };
 
-#endif  // _FSTM_IMP_H_
+#endif  // _IFSTM_IMP_H_

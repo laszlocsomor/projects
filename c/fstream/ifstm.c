@@ -1,6 +1,6 @@
-#include "fstm.h"
+#include "ifstm.h"
 
-int ifstm(FILE* f, struct fstm* out) {
+int ifstm(FILE* f, struct ifstm* out) {
   if (!f) {
     return 1;
   }
@@ -18,7 +18,7 @@ int ifstm(FILE* f, struct fstm* out) {
   return 0;
 }
 
-int ifstm_rd(struct fstm* s) {
+int ifstm_rd(struct ifstm* s) {
   if (s->pos == s->end) {
     return IFSTM_RD_EOF;
   }
@@ -44,7 +44,7 @@ int ifstm_rd(struct fstm* s) {
   return result;
 }
 
-size_t ifstm_pk(struct fstm* s, size_t n, uint8_t* out) {
+size_t ifstm_pk(struct ifstm* s, size_t n, uint8_t* out) {
   if (s->pos == s->end) {
     return 0;
   }
