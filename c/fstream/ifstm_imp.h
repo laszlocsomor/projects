@@ -1,8 +1,8 @@
 #ifndef _IFSTM_IMP_H_
 #define _IFSTM_IMP_H_ 1
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #ifdef IFSTM_RD_EOF
 #error "IFSTM_RD_EOF already defined"
@@ -18,7 +18,7 @@
 #define IFSTM_RD_IO 257
 #endif
 
-#ifdef _IFSTM_PAGE 
+#ifdef _IFSTM_PAGE
 #error "_IFSTM_PAGE already defined"
 #else
 // Size of the input file stream's page size, in bytes.
@@ -27,10 +27,10 @@
 #endif
 
 struct ifstm {
-  FILE* f;
+  FILE *f;
   size_t pos, end;
   size_t next_size; // size of the inactive page
   uint8_t pages[_IFSTM_PAGE * 2];
 };
 
-#endif  // _IFSTM_IMP_H_
+#endif // _IFSTM_IMP_H_

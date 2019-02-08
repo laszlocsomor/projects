@@ -2,8 +2,8 @@
 
 #include "ifstm.h"
 
-int main(int argc, char** argv) {
-  FILE* f;
+int main(int argc, char **argv) {
+  FILE *f;
   struct ifstm s;
 
   f = fopen("./hello.txt", "rb");
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
   }
   fclose(f);
 
-  (void) argc;
-  (void) argv;
+  (void)argc;
+  (void)argv;
   return 0;
 }
