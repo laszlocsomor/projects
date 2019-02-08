@@ -30,6 +30,4 @@ size_t ifstm_pk(struct fstm* s, size_t n, uint8_t* out);
 // Returns nonzero if 's' reached EOF.
 int ifstm_eof(struct fstm* s);
 
-void ifstm_close(struct fstm* s);
-
 #endif  // _FSTM_H_

@@ -74,10 +74,3 @@ size_t ifstm_pk(struct fstm* s, size_t n, uint8_t* out) {
 int ifstm_eof(struct fstm* s) {
   return s->pos == s->end;
 }
-
-void ifstm_close(struct fstm* s) {
-  if (s->f) {
-    fclose(s->f);
-    s->f = 0;
-  }
-}

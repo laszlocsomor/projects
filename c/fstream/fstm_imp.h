@@ -4,14 +4,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#ifdef _IFSTM_PAGE 
-#error "_IFSTM_PAGE already defined"
-#else
-// Size of the input file stream's page size, in bytes.
-// The stream's buffer holds two pages of data.
-#define _IFSTM_PAGE 4
-#endif
-
 #ifdef IFSTM_RD_EOF
 #error "IFSTM_RD_EOF already defined"
 #else
@@ -24,6 +16,14 @@
 #else
 // Return value of ifstm_rd: failed to read due to I/O error.
 #define IFSTM_RD_IO 257
+#endif
+
+#ifdef _IFSTM_PAGE 
+#error "_IFSTM_PAGE already defined"
+#else
+// Size of the input file stream's page size, in bytes.
+// The stream's buffer holds two pages of data.
+#define _IFSTM_PAGE 4
 #endif
 
 struct fstm {

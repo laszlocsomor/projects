@@ -21,14 +21,14 @@ int main(int argc, char** argv) {
     printf("read: %d\n", b);
     uint8_t pk[10];
     for (int i = 0; i < 10 && ifstm_pk(&s, i, pk) == i; i++) {
-      printf("  peeked %2d:", i);
+      printf("  peeked %d:", i);
       for (int j = 0; j < i; ++j) {
         printf(" %d", pk[j]);
       }
       printf("\n");
     }
   }
-  ifstm_close(&s);
+  fclose(f);
 
   (void) argc;
   (void) argv;
