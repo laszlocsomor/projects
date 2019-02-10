@@ -1,20 +1,20 @@
 #include "ifstm.h"
 
-int ifstm(FILE *f, struct ifstm *out) {
+int ifstm(FILE *f, struct ifstm *s, size_t page_size) {
   if (!f) {
     return 1;
   }
-  size_t n = fread(out->pages, 1, _IFSTM_PAGE * 2, f);
+  size_t n = fread(s->pages, 1, page_size * 2, f);
   if (n == 0 && !feof(f)) {
     return 1;
   }
 
-  out->f = f;
-  out->pos = 0;
-  out->end = n < _IFSTM_PAGE ? n : _IFSTM_PAGE;
-  out->next_size = n < _IFSTM_PAGE
-                       ? 0
-                       : (n < _IFSTM_PAGE * 2 ? n - _IFSTM_PAGE : _IFSTM_PAGE);
+  s->f = f;
+  s->pos = 0;
+  s->end = n < page_size ? n : page_size;
+  s->next_size =
+      n < page_size ? 0 : (n < page_size * 2 ? n - page_size : page_size);
+  s->page_size = page_size;
   return 0;
 }
 
@@ -33,12 +33,12 @@ int ifstm_rd(struct ifstm *s) {
     return IFSTM_RD_IO;
   }
   // Overwrite the *active* page: we are about to move off of it.
-  size_t offs = (s->pos < _IFSTM_PAGE) ? 0 : _IFSTM_PAGE;
-  size_t read = fread(s->pages + offs, 1, _IFSTM_PAGE, s->f);
+  size_t offs = (s->pos < s->page_size) ? 0 : s->page_size;
+  size_t read = fread(s->pages + offs, 1, s->page_size, s->f);
   if (read == 0 && !feof(s->f)) {
     return IFSTM_RD_IO;
   }
-  s->pos = (s->pos < _IFSTM_PAGE) ? _IFSTM_PAGE : 0;
+  s->pos = (s->pos < s->page_size) ? s->page_size : 0;
   s->end = s->pos + s->next_size;
   s->next_size = read;
   return result;
@@ -60,7 +60,7 @@ size_t ifstm_pk(struct ifstm *s, size_t n, void *out) {
     return n;
   }
 
-  size_t offs = (s->pos < _IFSTM_PAGE) ? _IFSTM_PAGE : 0;
+  size_t offs = (s->pos < s->page_size) ? s->page_size : 0;
   size_t n2 = n - n1; // how much is left to read
   if (n2 > s->next_size) {
     n2 = s->next_size; // read no more than the other page's size

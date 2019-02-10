@@ -8,11 +8,12 @@
 
 struct ofstm;
 
-// Initializes the output file stream 'out', using the opened-for-write 'f'.
+// Initializes the output file stream 's', using the opened-for-write 'f'.
+// 's' should have 'buf_size' many bytes allocated in 'ofstm::buf'.
 // Returns:
 //   0: success
 //   1: failure, I/O error
-int ofstm(FILE *f, struct ofstm *out);
+int ofstm(FILE *f, struct ofstm *s, size_t buf_size);
 
 // Writes 0..'n' bytes from 'p' into the output file stream 's'.
 // Returns:

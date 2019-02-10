@@ -4,18 +4,10 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#ifdef _OFSTM_BUF
-#error "_OFSTM_BUF already defined"
-#else
-// Size of the input file stream's page size, in bytes.
-// The stream's buffer holds two pages of data.
-#define _OFSTM_BUF 4
-#endif
-
 struct ofstm {
   FILE *f;
-  size_t pos;
-  uint8_t buf[_OFSTM_BUF];
+  size_t pos, buf_size;
+  uint8_t buf[0];
 };
 
 #endif // _OFSTM_IMP_H_

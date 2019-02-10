@@ -18,19 +18,12 @@
 #define IFSTM_RD_IO 257
 #endif
 
-#ifdef _IFSTM_PAGE
-#error "_IFSTM_PAGE already defined"
-#else
-// Size of the input file stream's page size, in bytes.
-// The stream's buffer holds two pages of data.
-#define _IFSTM_PAGE 4
-#endif
-
 struct ifstm {
   FILE *f;
   size_t pos, end;
   size_t next_size; // size of the inactive page
-  uint8_t pages[_IFSTM_PAGE * 2];
+  size_t page_size;
+  uint8_t pages[0];
 };
 
 #endif // _IFSTM_IMP_H_
