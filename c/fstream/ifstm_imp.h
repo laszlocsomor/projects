@@ -4,18 +4,18 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#ifdef IFSTM_RD_EOF
-#error "IFSTM_RD_EOF already defined"
+#ifdef IFSTM_READ_EOF
+#error "IFSTM_READ_EOF already defined"
 #else
-// Return value of ifstm_rd: failed to read due to EOF reached.
-#define IFSTM_RD_EOF 256
+// Return value of ifstm_read: failed to read due to EOF reached.
+#define IFSTM_READ_EOF 256
 #endif
 
-#ifdef IFSTM_RD_IO
-#error "IFSTM_RD_IO already defined"
+#ifdef IFSTM_READ_IO
+#error "IFSTM_READ_IO already defined"
 #else
-// Return value of ifstm_rd: failed to read due to I/O error.
-#define IFSTM_RD_IO 257
+// Return value of ifstm_read: failed to read due to I/O error.
+#define IFSTM_READ_IO 257
 #endif
 
 struct ifstm {

@@ -18,14 +18,14 @@ int ifstm(FILE *f, struct ifstm *s, size_t page_size);
 // Reads one byte from the stream, and moves the cursor ahead.
 // Returns:
 //   0..255: success, the value of the read byte
-//   256 (IFSTM_RD_EOF): failure, EOF was reached
-//   257 (IFSTM_RD_IO): failure, I/O error
-int ifstm_rd(struct ifstm *s);
+//   256 (IFSTM_READ_EOF): failure, EOF was reached
+//   257 (IFSTM_READ_IO): failure, I/O error
+int ifstm_read(struct ifstm *s);
 
 // Peeks at 'n' bytes starting at the current cursor.
 // Writes into 'out' the 0..'n' successfully peeked bytes.
 // Returns:
 //   0..n: the number of successfully peeked bytes
-size_t ifstm_pk(struct ifstm *s, size_t n, void *out);
+size_t ifstm_peek(struct ifstm *s, size_t n, void *out);
 
 #endif // _IFSTM_H_

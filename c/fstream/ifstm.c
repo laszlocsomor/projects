@@ -18,9 +18,9 @@ int ifstm(FILE *f, struct ifstm *s, size_t page_size) {
   return 0;
 }
 
-int ifstm_rd(struct ifstm *s) {
+int ifstm_read(struct ifstm *s) {
   if (s->pos == s->end) {
-    return IFSTM_RD_EOF;
+    return IFSTM_READ_EOF;
   }
 
   int result = s->pages[s->pos];
@@ -30,13 +30,13 @@ int ifstm_rd(struct ifstm *s) {
   }
 
   if (!s->f) {
-    return IFSTM_RD_IO;
+    return IFSTM_READ_IO;
   }
   // Overwrite the *active* page: we are about to move off of it.
   size_t offs = (s->pos < s->page_size) ? 0 : s->page_size;
   size_t read = fread(s->pages + offs, 1, s->page_size, s->f);
   if (read == 0 && !feof(s->f)) {
-    return IFSTM_RD_IO;
+    return IFSTM_READ_IO;
   }
   s->pos = (s->pos < s->page_size) ? s->page_size : 0;
   s->end = s->pos + s->next_size;
@@ -44,7 +44,7 @@ int ifstm_rd(struct ifstm *s) {
   return result;
 }
 
-size_t ifstm_pk(struct ifstm *s, size_t n, void *out) {
+size_t ifstm_peek(struct ifstm *s, size_t n, void *out) {
   if (s->pos == s->end) {
     return 0;
   }

@@ -25,29 +25,29 @@ int foo(FILE *in, FILE *out) {
   }
 
   int b = 0;
-  while ((b = ifstm_rd(&is.stm)) < 256) {
+  while ((b = ifstm_read(&is.stm)) < 256) {
     printf("read: %d\n", b);
-    if (ofstm_pnt(&os.stm, "read: ") || ofstm_wr(&os.stm, &b, 1) ||
-        ofstm_wr(&os.stm, "\n", 1)) {
+    if (ofstm_print(&os.stm, "read: ") || ofstm_write(&os.stm, &b, 1) ||
+        ofstm_write(&os.stm, "\n", 1)) {
       return 1;
     }
     uint8_t pk[10];
-    for (int i = 0; i < 10 && ifstm_pk(&is.stm, i, pk) == i; i++) {
+    for (int i = 0; i < 10 && ifstm_peek(&is.stm, i, pk) == i; i++) {
       printf("  peeked %d:", i);
-      if (ofstm_pnt(&os.stm, "  peeked: ")) {
+      if (ofstm_print(&os.stm, "  peeked: ")) {
         return 1;
       }
       for (int j = 0; j < i; ++j) {
         printf(" %d", pk[j]);
       }
-      if (ofstm_wr(&os.stm, pk, i) || ofstm_pnt(&os.stm, "\n")) {
+      if (ofstm_write(&os.stm, pk, i) || ofstm_print(&os.stm, "\n")) {
         return 1;
       }
       printf("\n");
     }
   }
 
-  return ofstm_fsh(&os.stm);
+  return ofstm_flush(&os.stm);
 }
 
 int main(int argc, char **argv) {

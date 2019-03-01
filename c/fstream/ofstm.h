@@ -19,17 +19,17 @@ int ofstm(FILE *f, struct ofstm *s, size_t buf_size);
 // Returns:
 //   0: success
 //   1: failure, I/O error
-int ofstm_wr(struct ofstm *s, const void *p, size_t n);
+int ofstm_write(struct ofstm *s, const void *p, size_t n);
 
 // Writes the null-terminated string from 'p' into the output file stream 's'.
 // Returns:
 //   0: success
 //   1: failure, I/O error
-int ofstm_pnt(struct ofstm *s, const char *p);
+int ofstm_print(struct ofstm *s, const char *p);
 
 // Writes the bytes currently in the stream's buffer into the file.
 //   0: success
 //   1: failure, I/O error
-int ofstm_fsh(struct ofstm *s);
+int ofstm_flush(struct ofstm *s);
 
 #endif // _OFSTM_H_

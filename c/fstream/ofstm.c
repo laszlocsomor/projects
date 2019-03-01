@@ -12,7 +12,7 @@ int ofstm(FILE *f, struct ofstm *s, size_t buf_size) {
   return 0;
 }
 
-int ofstm_wr(struct ofstm *s, const void *p, size_t n) {
+int ofstm_write(struct ofstm *s, const void *p, size_t n) {
   size_t n1 = n + s->pos > s->buf_size ? s->buf_size - s->pos : n;
   memcpy(s->buf + s->pos, p, n1);
   if (n1 == n) {
@@ -34,11 +34,11 @@ int ofstm_wr(struct ofstm *s, const void *p, size_t n) {
   return 0;
 }
 
-int ofstm_pnt(struct ofstm *s, const char *p) {
-  return ofstm_wr(s, p, strlen(p));
+int ofstm_print(struct ofstm *s, const char *p) {
+  return ofstm_write(s, p, strlen(p));
 }
 
-int ofstm_fsh(struct ofstm *s) {
+int ofstm_flush(struct ofstm *s) {
   if (s->pos) {
     size_t n = fwrite(s->buf, 1, s->pos, s->f);
     s->pos = 0;
