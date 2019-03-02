@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "ifstm_imp.h"
+#include "fstream/ifstm_imp.h"
 
 struct ifstm;
 

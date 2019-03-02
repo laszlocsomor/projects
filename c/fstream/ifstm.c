@@ -1,4 +1,4 @@
-#include "ifstm.h"
+#include "fstream/ifstm.h"
 
 int ifstm(FILE *f, struct ifstm *s, size_t page_size) {
   if (!f) {

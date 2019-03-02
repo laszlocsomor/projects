@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "ifstm.h"
-#include "ofstm.h"
+#include "fstream/ifstm.h"
+#include "fstream/ofstm.h"
 
 struct ifstm_p4 {
   struct ifstm stm;
@@ -51,10 +51,14 @@ int foo(FILE *in, FILE *out) {
 }
 
 int main(int argc, char **argv) {
+  if (argc != 3) {
+    fprintf(stderr, "Usage: %s <in_file> <out_file>\n", argv[0]);
+    return 1;
+  }
   FILE *f, *g;
 
-  f = fopen("./hello.txt", "rb");
-  g = fopen("./world.txt", "wb");
+  f = fopen(argv[1], "rb");
+  g = fopen(argv[2], "wb");
   int res = foo(f, g);
   fclose(f);
   fclose(g);
