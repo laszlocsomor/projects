@@ -3,7 +3,7 @@
 #include "fstream/ifstm.h"
 #include "fstream/ofstm.h"
 
-struct ifstm_p4 {
+struct ifstm_b8 {
   struct ifstm stm;
   uint8_t pages[8]; // page_size = 4
 };
@@ -18,9 +18,9 @@ int foo(FILE *in, FILE *out) {
     return 1;
   }
 
-  struct ifstm_p4 is;
+  struct ifstm_b8 is;
   struct ofstm_b4 os;
-  if (ifstm(in, &is.stm, 4) || ofstm(out, &os.stm, 4)) {
+  if (ifstm(in, &is.stm, 8) || ofstm(out, &os.stm, 4)) {
     return 1;
   }
 

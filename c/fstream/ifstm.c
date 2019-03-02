@@ -1,7 +1,8 @@
 #include "fstream/ifstm.h"
 
-int ifstm(FILE *f, struct ifstm *s, size_t page_size) {
-  if (!f) {
+int ifstm(FILE *f, struct ifstm *s, size_t buf_size) {
+  const size_t page_size = buf_size / 2;
+  if (!f || !page_size) {
     return 1;
   }
   size_t n = fread(s->pages, 1, page_size * 2, f);

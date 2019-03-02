@@ -9,11 +9,11 @@
 struct ifstm;
 
 // Initializes the input file stream 's', using the opened-for-read 'f'.
-// 's' should have 2 * 'page_size' many bytes allocated in 'ifstm::pages'.
+// 's' should have 'buf_size' many bytes allocated in 'ifstm::pages'.
 // Returns:
 //   0: success
 //   1: failure, I/O error
-int ifstm(FILE *f, struct ifstm *s, size_t page_size);
+int ifstm(FILE *f, struct ifstm *s, size_t buf_size);
 
 // Reads one byte from the stream, and moves the cursor ahead.
 // Returns:
