@@ -1,0 +1,9 @@
+maven_server(
+    name = "default",
+    url = "http://127.0.0.1:12345/",
+)
+
+maven_jar(
+    name = "thing_a_ma_bop",
+    artifact = "thing:amabop:1.9",
+)
