@@ -1,0 +1,10 @@
+new_local_repository(
+    name = "repo",
+    path = "../repo",
+    build_file_content = """
+cc_library(
+    name = "a",
+    hdrs = ["foo/a.h"],
+    visibility = ["//visibility:public"],
+)
+""")
