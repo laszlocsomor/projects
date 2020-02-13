@@ -1,4 +1,4 @@
 local_repository(
     name = "MyRepo",
-    path = "../Repo",
+    path = "../repo",
 )
