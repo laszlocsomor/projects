@@ -1,12 +1,9 @@
-name: Upload a Release Asset
-uses: actions/upload-release-asset@v1.0.2
+name: Release
 
 on:
   push:
     tags:
     - 'v*' # matching tags like v1.0, v20.15.10, vtest
-
-name: Upload Release Asset
 
 jobs:
   build:
@@ -41,4 +38,3 @@ jobs:
           asset_name: out.txt
           # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
           asset_content_type: text/plain
-
