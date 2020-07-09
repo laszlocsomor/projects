@@ -20,33 +20,25 @@ jobs:
         uses: actions/checkout@v2
       - name: Build release
         run: |
-          echo "this is a release, commit hash=${{ github.sha }}" > out.txt
-          echo "this is another output" > out2.txt
+          echo "this is a release, commit hash=${{ github.sha }}" > out.txt && echo "this is another output" > out2.txt
         shell: bash
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          body: Release ${{ github.ref }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
       - name: Upload out.txt
-        #id: upload-release-asset
         uses: actions/upload-release-asset@v1
         with:
-          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out.txt
           asset_name: out.txt
           # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
           asset_content_type: text/plain
       - name: Upload out2.txt
-        #id: upload-release-asset2
         uses: actions/upload-release-asset@v1
         with:
-          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out2.txt
           asset_name: out2.txt
