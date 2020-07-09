@@ -5,6 +5,11 @@ on:
     tags:
     - 'v*' # matching tags like v1.0, v20.15.10, vtest
 
+# Recommended here: https://github.com/bazelbuild/bazelisk/issues/88#issuecomment-625178467
+env:
+  BAZELISK_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 # Bazel is already installed on the self-hosted machines.
 jobs:
   build:
@@ -29,24 +34,24 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload out.txt
-        id: upload-release-asset 
+        #id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out.txt
           asset_name: out.txt
           # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
           asset_content_type: text/plain
       - name: Upload out2.txt
-        id: upload-release-asset2 
+        #id: upload-release-asset2
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out2.txt
           asset_name: out2.txt
