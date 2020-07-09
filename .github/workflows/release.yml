@@ -5,6 +5,7 @@ on:
     tags:
     - 'v*' # matching tags like v1.0, v20.15.10, vtest
 
+# Bazel is already installed on the self-hosted machines.
 jobs:
   build:
     name: Upload Release Asset
@@ -12,9 +13,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build .deb file
+      - name: Build release
         run: |
           echo "this is a release, commit hash=${{ github.sha }}" > out.txt
+          echo "this is another output" > out2.txt
         shell: bash
       - name: Create GitHub Release
         id: create_release
@@ -26,7 +28,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload .deb file
+      - name: Upload out.txt
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
         env:
@@ -36,5 +38,17 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./out.txt
           asset_name: out.txt
+          # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
+          asset_content_type: text/plain
+      - name: Upload out2.txt
+        id: upload-release-asset2 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out2.txt
+          asset_name: out2.txt
           # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
           asset_content_type: text/plain
