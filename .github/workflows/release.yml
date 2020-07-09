@@ -1,0 +1,44 @@
+name: Upload a Release Asset
+uses: actions/upload-release-asset@v1.0.2
+
+on:
+  push:
+    tags:
+    - 'v*' # matching tags like v1.0, v20.15.10, vtest
+
+name: Upload Release Asset
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: [self-hosted, Linux]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build .deb file
+        run: |
+          echo "this is a release, commit hash=${{ github.sha }}" > out.txt
+        shell: bash
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload .deb file
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out.txt
+          asset_name: out.txt
+          # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
+          asset_content_type: text/plain
+
