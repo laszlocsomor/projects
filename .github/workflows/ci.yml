@@ -21,7 +21,7 @@ jobs:
     steps:
     - name: Run tests
       env:
-      - GH_REF: ${{ github.ref }}
+        GH_REF: ${{ github.ref }}
       run: echo 'Test2 passed, GH_REF=(${GH_REF:-})'
     
   release:
