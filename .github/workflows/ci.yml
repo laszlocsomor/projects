@@ -29,6 +29,7 @@ jobs:
     
     - name: Conditional step
       if: ${{ startsWith(github.ref, 'v') }}
+      continue-on-error: false
       shell: bash
       run: echo 'Run conditional step, fail' && fail
 
