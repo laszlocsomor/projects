@@ -12,34 +12,31 @@ env:
 jobs:
   test1:
     runs-on: ubuntu-18.04
-
     steps:
-    - uses: actions/checkout@v2
-
     - name: Run tests
-      shell: bash
       run: echo 'Test1 passed'
 
   test2:
     runs-on: ubuntu-18.04
-
     steps:
-    - uses: actions/checkout@v2
-
     - name: Run tests
-      shell: bash
-      run: echo 'Test2 passed'
+      env:
+      - GH_REF: ${{ github.ref }}
+      run: echo 'Test2 passed, GH_REF=(${GH_REF:-})'
     
   release:
     runs-on: ubuntu-18.04
     needs: [test1, test2]
+    # Caution: startsWith is NOT case-sensitive
+    # Note: No way to know if github.ref is a branch or a tag.
+    #       A simple "v*" prefix isn't distinctive enough for releases.
+    #       So we require a "release-v*" prefix.
+    #if: ${{ startsWith(github.ref, 'release-v') }}
     if: ${{ startsWith(github.ref, 'v') }}
 
     steps:
     - name: step1
-      shell: bash
       run: echo 'Step 1, fail' && fail
 
     - name: step2
-      shell: bash
       run: echo 'Step 2, succeed'
