@@ -10,29 +10,42 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  test-linux:
+  test1:
     runs-on: ubuntu-18.04
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Run tests
-      id: run_tests
       shell: bash
       run: |
         if [[ -f ./fail_the_tests ]]; then
-          echo 'Tests failed'
+          echo 'Test1 failed'
           false
         else
-          echo 'Tests passed'
+          echo 'Test1 passed'
         fi
-    
-    - name: Conditional step
-      if: ${{ startsWith(github.ref, 'v') }}
-      continue-on-error: false
-      shell: bash
-      run: echo 'Run conditional step, fail' && fail
 
-    - name: Final step
+  test2:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run tests
       shell: bash
-      run: echo 'Run final step'
+      run: echo 'Test2 passed'
+    
+  release:
+    runs-on: ubuntu-18.04
+    needs: [test1, test2]
+    if: ${{ startsWith(github.ref, 'v') }}
+
+    steps:
+    - name: step1
+      shell: bash
+      run: echo 'Step 1, fail' && fail
+
+    - name: step2
+      shell: bash
+      run: echo 'Step 2, succeed'
