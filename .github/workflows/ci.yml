@@ -13,31 +13,32 @@ jobs:
   test1:
     runs-on: ubuntu-18.04
     steps:
-    - name: Run tests
-      run: echo 'Test1 passed'
+    - name: Test envvars and contexts
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        zzz: ${INPUT_RELEASE_NAME}
+      run: echo "Hello!" ; env | sort
 
-  test2:
-    runs-on: ubuntu-18.04
-    steps:
-    - name: Run tests
-      env:
-        GH_REF: ${{ github.ref }}
-      run: echo "Test2 passed, GH_REF=(${GH_REF:-}) (${{ github.ref }})"
-      # refs/heads/master
-    
-  release:
-    runs-on: ubuntu-18.04
-    needs: [test1, test2]
-    # Caution: startsWith is NOT case-sensitive
-    # Note: No way to know if github.ref is a branch or a tag.
-    #       A simple "v*" prefix isn't distinctive enough for releases.
-    #       So we require a "release-v*" prefix.
-    #if: ${{ startsWith(github.ref, 'release-v') }}
-    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+  #test2:
+  #  runs-on: ubuntu-18.04
+  #  steps:
+  #  - name: Run tests
+  #    env:
+  #      GH_REF: ${{ github.ref }}
+  #    run: echo "Test2 passed, GH_REF=(${GH_REF:-}) (${{ github.ref }})"
+  #    # refs/heads/master
+  #    # refs/tags/v0.0.0-test15
+  #  
+  #release:
+  #  runs-on: ubuntu-18.04
+  #  needs: [test1, test2]
+  #  # Caution: startsWith is NOT case-sensitive
+  #  if: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
-    steps:
-    - name: step1
-      run: echo 'Step 1, fail' && fail
+  #  steps:
+  #  - name: step1
+  #    run: echo 'Step 1, fail' && fail
 
-    - name: step2
-      run: echo 'Step 2, succeed'
+  #  - name: step2
+  #    run: echo 'Step 2, succeed'
