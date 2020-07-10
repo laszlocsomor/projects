@@ -18,13 +18,7 @@ jobs:
 
     - name: Run tests
       shell: bash
-      run: |
-        if [[ -f ./fail_the_tests ]]; then
-          echo 'Test1 failed'
-          false
-        else
-          echo 'Test1 passed'
-        fi
+      run: echo 'Test1 failed' && fail
 
   test2:
     runs-on: ubuntu-18.04
