@@ -22,7 +22,7 @@ jobs:
     - name: Run tests
       env:
         GH_REF: ${{ github.ref }}
-      run: echo 'Test2 passed, GH_REF=(${GH_REF:-})'
+      run: echo "Test2 passed, GH_REF=(${GH_REF:-}) (${{ github.ref }})"
     
   release:
     runs-on: ubuntu-18.04
