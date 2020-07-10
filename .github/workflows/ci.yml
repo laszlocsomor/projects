@@ -23,6 +23,7 @@ jobs:
       env:
         GH_REF: ${{ github.ref }}
       run: echo "Test2 passed, GH_REF=(${GH_REF:-}) (${{ github.ref }})"
+      # refs/heads/master
     
   release:
     runs-on: ubuntu-18.04
@@ -32,7 +33,7 @@ jobs:
     #       A simple "v*" prefix isn't distinctive enough for releases.
     #       So we require a "release-v*" prefix.
     #if: ${{ startsWith(github.ref, 'release-v') }}
-    if: ${{ startsWith(github.ref, 'v') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
     steps:
     - name: step1
