@@ -13,12 +13,12 @@ jobs:
   test1:
     runs-on: ubuntu-18.04
     steps:
-    - name: Test envvars and contexts
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+    - name: Run tests
+      env:
+        GH_REF: ${{ github.ref }}
       run: |
-        echo "Hello!" ; env
+        echo "Envvars:"
+        env
 
   #test2:
   #  runs-on: ubuntu-18.04
