@@ -30,7 +30,7 @@ jobs:
     - name: Conditional step
       if: ${{ startsWith(github.ref, 'v') }}
       shell: bash
-      run: echo 'Run conditional step'
+      run: echo 'Run conditional step, fail' && fail
 
     - name: Final step
       shell: bash
