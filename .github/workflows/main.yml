@@ -1,0 +1,33 @@
+name: CI and Release
+
+on:
+  push:
+    branches: [ yml-test-* ]
+
+# Recommended here: https://github.com/bazelbuild/bazelisk/issues/88#issuecomment-625178467
+env:
+  BAZELISK_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build release
+        run: echo ${{ github.ref }} > ./out.txt
+        shell: bash
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload release artifact
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out.txt
+          asset_name: out.txt
+          # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
+          asset_content_type: text/plain
