@@ -21,7 +21,7 @@ jobs:
           seperator: '/'
           maxsplit: 1
       - name: Print release name
-        run: echo "0=(${{ steps.create_release_name.outputs._0 }}) 1=(${{ steps.create_release_name.outputs._1 }}) 2=(${{ steps.create_release_name.outputs._2 }})""
+        run: echo "0=(${{ steps.create_release_name.outputs._0 }}) 1=(${{ steps.create_release_name.outputs._1 }}) 2=(${{ steps.create_release_name.outputs._2 }})"
         shell: bash
       #- uses: actions/checkout@v2
       #- name: Build release
