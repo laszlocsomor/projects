@@ -13,21 +13,31 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build release
-        run: echo ${{ github.ref }} > ./out.txt
+      - name: Create release name
+        id: create_release_name
+        uses: JungWinter/split@v1.1.0
+        with:
+          msg: ${{ github.ref }}  # refs/heads/yml-test-1 ??
+          separator: '/'
+          maxsplit: 1
+      - name: Print release name
+        run: echo "0=(${{ steps.create_release_name.outputs._0 }}) 1=(${{ steps.create_release_name.outputs._1 }}) 2=(${{ steps.create_release_name.outputs._2 }})""
         shell: bash
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-      - name: Upload release artifact
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./out.txt
-          asset_name: out.txt
-          # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
-          asset_content_type: text/plain
+      #- uses: actions/checkout@v2
+      #- name: Build release
+      #  run: echo ${{ github.ref }} > ./out.txt
+      #  shell: bash
+      #- name: Create GitHub Release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  with:
+      #    tag_name: ${{ github.ref }}
+      #    release_name: Release ${{ github.ref }}
+      #- name: Upload release artifact
+      #  uses: actions/upload-release-asset@v1
+      #  with:
+      #    upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #    asset_path: ./out.txt
+      #    asset_name: out.txt
+      #    # Media type from: https://www.iana.org/assignments/media-types/media-types.xhtml#application
+      #    asset_content_type: text/plain
