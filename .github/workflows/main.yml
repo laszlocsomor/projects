@@ -13,15 +13,24 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Create release name
-        id: create_release_name
-        uses: JungWinter/split@v1.1.0
-        with:
-          msg: ${{ github.ref }}  # refs/heads/yml-test-1 ??
-          seperator: '/'
-          maxsplit: 1
-      - name: Print release name
-        run: echo "0=(${{ steps.create_release_name.outputs._0 }}) 1=(${{ steps.create_release_name.outputs._1 }}) 2=(${{ steps.create_release_name.outputs._2 }})"
+      #- name: Create release name
+      #  id: create_release_name
+      #  uses: JungWinter/split@v1.1.0
+      #  with:
+      #    msg: ${{ github.ref }}  # refs/heads/yml-test-1 ??
+      #    seperator: '/'
+      #    maxsplit: 1
+      - name: Set envvar
+        id: set_envvar
+        run: |
+          FOO=$(echo ${{ github.ref }} | cut -d'/' -f 2)
+          echo "FOO=$FOO"
+          echo "::set-env name=test_foo::$FOO"
+          echo "::set-output name=test_bar::$FOO"
+      - name: Print variables
+        run: |
+          echo "test_bar output: (${{ steps.set_envvar.outputs.test_bar }})"
+          echo "test_foo env: ($TEST_FOO)"
         shell: bash
       #- uses: actions/checkout@v2
       #- name: Build release
