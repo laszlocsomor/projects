@@ -22,6 +22,7 @@ jobs:
       #    maxsplit: 1
       - name: Set envvar
         id: set_envvar
+        shell: bash
         run: |
           FOO=$(echo ${{ github.ref }} | cut -d'/' -f 2)
           echo "FOO=$FOO"
