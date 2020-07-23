@@ -2,7 +2,8 @@ name: CI and Release
 
 on:
   push:
-    branches: [ yml-test-* ]
+    #branches: [ yml-test-* ]
+    tags: v*
 
 # Recommended here: https://github.com/bazelbuild/bazelisk/issues/88#issuecomment-625178467
 env:
@@ -13,26 +14,32 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      #- name: Create release name
-      #  id: create_release_name
-      #  uses: JungWinter/split@v1.1.0
-      #  with:
-      #    msg: ${{ github.ref }}  # refs/heads/yml-test-1 ??
-      #    seperator: '/'
-      #    maxsplit: 1
-      - name: Set envvar
-        id: set_envvar
-        shell: bash
+      - name: Create release name
+        id: release_name
         run: |
-          FOO=$(echo ${{ github.ref }} | cut -d'/' -f 2)
-          echo "FOO=$FOO"
-          echo "::set-env name=TEST_FOO::$FOO"
-          echo "::set-output name=test_bar::$FOO"
-      - name: Print variables
-        run: |
-          echo "test_bar output: (${{ steps.set_envvar.outputs.test_bar }})"
-          echo "test_foo env: ($TEST_FOO)"
+          RELEASE_NAME=$(echo ${{ github.ref }} | sed 's_^refs/tags/v__')
+          echo "::set-output name=with_dots::$RELEASE_NAME"
+          echo "::set-output name=with_dashes::${RELEASE_NAME//./-}"
         shell: bash
+      - uses: actions/checkout@v2
+      - run: |
+          echo "embed_label=Release ${{ steps.release_name.outputs.with_dots }} (${{ github.sha }})"
+          echo "with dashes=Release ${{ steps.release_name.outputs.with_dashes }}"
+
+      #- name: Set envvar
+      #  id: set_envvar
+      #  shell: bash
+      #  run: |
+      #    FOO=$(echo ${{ github.ref }} | cut -d'/' -f 2)
+      #    echo "FOO=$FOO"
+      #    echo "::set-env name=TEST_FOO::$FOO"
+      #    echo "::set-output name=test_bar::$FOO"
+      #- name: Print variables
+      #  run: |
+      #    echo "test_bar output: (${{ steps.set_envvar.outputs.test_bar }})"
+      #    echo "test_foo env: ($TEST_FOO)"
+      #  shell: bash
+
       #- uses: actions/checkout@v2
       #- name: Build release
       #  run: echo ${{ github.ref }} > ./out.txt
