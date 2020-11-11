@@ -1,0 +1,9 @@
+local_repository(
+    name = "repo1",
+    path = "../repo1",
+)
+
+register_toolchains(
+    "@repo1//bar_tools:barc_windows_toolchain",
+    "@repo1//bar_tools:barc_linux_toolchain",
+)
