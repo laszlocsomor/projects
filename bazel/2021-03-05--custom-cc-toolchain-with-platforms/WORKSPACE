@@ -1,0 +1,1 @@
+register_toolchains("//:my-cc-toolchain")
