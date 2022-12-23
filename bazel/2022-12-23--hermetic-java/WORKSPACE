@@ -1,0 +1,9 @@
+load("//:archive.bzl", "local_repository_archive")
+
+local_repository_archive(
+    name = "my_jdk",
+    src = "//:zulu19.30.11-ca-jdk19.0.1-linux_x64.tar.gz",
+    strip_prefix = "zulu19.30.11-ca-jdk19.0.1-linux_x64",
+)
+
+register_toolchains("//:my_jdk_definition", "//my_tool_jdk:toolchain")
