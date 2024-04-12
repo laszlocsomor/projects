@@ -30,7 +30,7 @@ public final class Streams {
    */
   public static String readStreamAsUtf8AndClose(
       InputStream source, int maxLen, int chunkLen, String truncationSuffix) throws IOException {
-    if (maxLen < 0 || chunkLen < 0) {
+    if (maxLen < 0 || chunkLen < 1) {
       throw new IllegalArgumentException();
     }
     if (source == null || maxLen == 0) {

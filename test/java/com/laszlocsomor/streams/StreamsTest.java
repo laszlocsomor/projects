@@ -19,10 +19,16 @@ public final class StreamsTest {
           IllegalArgumentException.class, () -> Streams.readStreamAsUtf8AndClose(s, -1, 10, ""));
     }
 
-    // negative chunk size
+    // negative chunk length
     try (InputStream s = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8))) {
       Assert.assertThrows(
           IllegalArgumentException.class, () -> Streams.readStreamAsUtf8AndClose(s, 10, -1, ""));
+    }
+
+    // zero chunk length
+    try (InputStream s = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8))) {
+      Assert.assertThrows(
+          IllegalArgumentException.class, () -> Streams.readStreamAsUtf8AndClose(s, 10, 0, ""));
     }
   }
 
