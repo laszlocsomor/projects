@@ -1,0 +1,54 @@
+load(
+    "@grpc-java//:java_grpc_library.bzl",
+    "java_grpc_library",
+)
+
+proto_library(
+    name = "hello_proto",
+    srcs = ["hello.proto"],
+)
+
+java_proto_library(
+    name = "hello_java_proto",
+    deps = [":hello_proto"],
+)
+
+java_grpc_library(
+    name = "hello_java_grpc",
+    srcs = [":hello_proto"],
+    deps = [":hello_java_proto"],
+)
+
+java_binary(
+    name = "server",
+    srcs = [
+        "ServerMain.java",
+    ],
+    main_class = "ServerMain",
+    deps = [
+        ":hello_java_grpc",
+        ":hello_java_proto",
+        "//java/com/laszlocsomor/logging",
+        "@grpc-java//api",
+        "@grpc-java//netty",
+        "@grpc-java//stub",
+        "@protobuf//java/core",
+    ],
+)
+
+java_binary(
+    name = "client",
+    srcs = [
+        "ClientMain.java",
+    ],
+    main_class = "ClientMain",
+    deps = [
+        ":hello_java_grpc",
+        ":hello_java_proto",
+        "//java/com/laszlocsomor/logging",
+        "@grpc-java//api",
+        "@grpc-java//netty",
+        "@grpc-java//stub",
+        "@protobuf//java/core",
+    ],
+)

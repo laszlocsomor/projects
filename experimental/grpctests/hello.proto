@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// package google.protobuf;
+
+option java_outer_classname = "HelloProto";
+// option java_multiple_files = true;
+
+service Hello {
+  rpc SayHello(HelloRequest) returns (HelloResponse) {
+    // option (google.api.http) = { post: "/v2/{instance_name=**}/actions:execute" body: "*" };
+  }
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string msg = 1;
+}
