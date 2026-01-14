@@ -1,0 +1,36 @@
+name: "Test GHA"
+
+on:
+  push:
+    branches:
+      - 'laszlo-test-gha'
+  workflow_dispatch:
+
+jobs:
+  foo-x64:
+    runs-on:
+      - "self-hosted"
+      - "arch=x64"
+      - "os=linux"
+    timeout-minutes: 3
+
+    steps:
+    - name: Main step
+      run: |
+        echo "sleeping 60sec"
+        sleep 60
+        date
+
+  foo-arm64:
+    runs-on:
+      - "self-hosted"
+      - "arch=arm64"
+      - "os=linux"
+    timeout-minutes: 3
+
+    steps:
+    - name: Main step
+      run: |
+        echo "sleeping 60sec"
+        sleep 60
+        date
